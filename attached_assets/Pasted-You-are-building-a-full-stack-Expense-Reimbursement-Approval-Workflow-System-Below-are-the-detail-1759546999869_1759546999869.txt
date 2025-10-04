@@ -1,0 +1,139 @@
+You are building a full-stack Expense Reimbursement & Approval Workflow System.
+Below are the detailed requirements — please generate production-quality code with clean architecture, authentication, APIs, and frontend.
+
+📌 Problem Statement
+
+Companies struggle with manual expense reimbursement processes that are:
+
+Time-consuming
+
+Error-prone
+
+Non-transparent
+
+We need a system that supports:
+
+Defining approval flows based on thresholds.
+
+Managing multi-level approvals.
+
+Supporting flexible and hybrid approval rules.
+
+📌 Core Features
+1. Authentication & User Management
+
+On first signup/login:
+
+A new Company is auto-created.
+
+Default currency is set from the company’s country (use RestCountries API).
+
+An Admin User is auto-created.
+
+Admin can:
+
+Create Employees & Managers.
+
+Assign or change roles (Employee, Manager, Admin).
+
+Define reporting relationships (Employee → Manager).
+
+Configure approval rules (sequences, conditional logic).
+
+2. Expense Submission (Employee Role)
+
+Employees can submit expense claims with:
+
+Amount (any currency → convert to company currency via ExchangeRate API).
+
+Category, Description, Date.
+
+Receipt upload with OCR (auto-read details: amount, date, vendor, expense type).
+
+Employees can view their own history (Approved, Pending, Rejected).
+
+3. Approval Workflow (Manager/Admin Role)
+
+Expenses follow a step-by-step approval chain.
+
+Admin defines sequence of approvers.
+
+Example: Step 1 → Manager → Step 2 → Finance → Step 3 → Director.
+
+Rules:
+
+Expense moves to next approver only after current one approves/rejects.
+
+If “Is Manager Approver” is enabled, first approval goes to direct manager.
+
+Managers/Admins can:
+
+View pending approvals.
+
+Approve/Reject with comments.
+
+View approval history for audit.
+
+4. Conditional Approval Rules
+
+Percentage Rule: e.g., If 60% approvers approve → Approved.
+
+Specific Approver Rule: e.g., If CFO approves → Auto-approved.
+
+Hybrid Rule: e.g., 60% OR CFO approval → Approved.
+
+Can combine sequential flow + conditional rules.
+
+📌 Role Permissions
+
+Admin: Create company (auto on signup), manage users/roles, configure approval rules, view all expenses, override approvals.
+
+Manager: Approve/reject expenses (amount visible in company’s default currency), view team expenses, escalate as per rules.
+
+Employee: Submit expenses, view their own submissions, track approval status.
+
+📌 Additional Features
+
+OCR for receipts (auto-generate expense details).
+
+Multi-currency support (conversion API).
+
+Audit trail (log all actions).
+
+📌 APIs
+
+Country & Currency:
+https://restcountries.com/v3.1/all?fields=name,currencies
+
+Currency Conversion:
+https://api.exchangerate-api.com/v4/latest/{BASE_CURRENCY}
+
+📌 Mockup
+
+Wireframe: Excalidraw
+
+👉 Please generate a full-stack application with:
+
+Backend: Node.js/Express (or Flask/FastAPI if Python), REST APIs, database schema (PostgreSQL or MongoDB).
+
+Frontend: React with Tailwind, clean UI for roles (Admin, Manager, Employee).
+
+Auth: JWT-based authentication with role-based access control.
+
+OCR: Integrate Tesseract.js or similar.
+
+Currency Conversion: Use ExchangeRate API on submission.
+
+Deployment: Docker setup with instructions.
+
+⚡ Final Output Expected:
+
+Clean modular code (backend + frontend).
+
+Database schema + migrations.
+
+API endpoints documented.
+
+Role-based dashboards.
+
+Example data seeding script.
